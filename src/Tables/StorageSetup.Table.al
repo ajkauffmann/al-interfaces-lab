@@ -5,36 +5,12 @@ table 50300 StorageSetup
     fields
     {
         field(1; PrimaryKey; Code[20]) { }
-        field(2; StorageType; Option)
-        {
-            OptionMembers = AzureBlob,Dropbox,SharePoint;
-        }
+        field(2; StorageType; Enum StorageType) { }
     }
 
     procedure GetStorageImplementation() IStorage: Interface IStorage
-    var
-        StorageAzureBlob: Codeunit StorageAzureBlob;
-        StorageDropbox: Codeunit StorageDropbox;
-        StorageSharePoint: Codeunit StorageSharePoint;
-        IsHandled: Boolean;
     begin
         Rec.Get();
-
-        OnBeforeGetStorageImplementation(Rec, IStorage, IsHandled);
-        if IsHandled then
-            exit;
-
-        case Rec.StorageType of
-            Rec.StorageType::AzureBlob:
-                IStorage := StorageAzureBlob;
-            Rec.StorageType::Dropbox:
-                IStorage := StorageDropbox;
-            Rec.StorageType::SharePoint:
-                IStorage := StorageSharePoint;
-        end;
-    end;
-
-    procedure OnBeforeGetStorageImplementation(var Rec: Record StorageSetup; var Storage: Interface IStorage; var IsHandled: Boolean);
-    begin
+        IStorage := Rec.StorageType;
     end;
 }
