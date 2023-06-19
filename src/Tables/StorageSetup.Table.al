@@ -11,20 +11,30 @@ table 50300 StorageSetup
         }
     }
 
-    procedure GetStorageImplementation(): Interface IStorage
+    procedure GetStorageImplementation() IStorage: Interface IStorage
     var
         StorageAzureBlob: Codeunit StorageAzureBlob;
         StorageDropbox: Codeunit StorageDropbox;
         StorageSharePoint: Codeunit StorageSharePoint;
+        IsHandled: Boolean;
     begin
         Rec.Get();
+
+        OnBeforeGetStorageImplementation(Rec, IStorage, IsHandled);
+        if IsHandled then
+            exit;
+
         case Rec.StorageType of
             Rec.StorageType::AzureBlob:
-                exit(StorageAzureBlob);
+                IStorage := StorageAzureBlob;
             Rec.StorageType::Dropbox:
-                exit(StorageDropbox);
+                IStorage := StorageDropbox;
             Rec.StorageType::SharePoint:
-                exit(StorageSharePoint);
+                IStorage := StorageSharePoint;
         end;
+    end;
+
+    procedure OnBeforeGetStorageImplementation(var Rec: Record StorageSetup; var Storage: Interface IStorage; var IsHandled: Boolean);
+    begin
     end;
 }
