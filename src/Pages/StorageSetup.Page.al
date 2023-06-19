@@ -31,7 +31,7 @@ page 50300 StorageSetup
                     StorageConnector: Codeunit StorageConnector;
                     FileData: Codeunit "Temp Blob";
                 begin
-                    StorageConnector.SaveFile('Test.txt', FileData);
+                    StorageConnector.SaveFile('Test.txt', FileData, Rec.GetStorageImplementation());
                 end;
             }
         }
