@@ -1,4 +1,4 @@
-codeunit 50303 StorageSharePoint
+codeunit 50303 StorageSharePoint implements IStorage
 {
     procedure SaveFile(FileName: Text; FileData: Codeunit "Temp Blob")
     begin

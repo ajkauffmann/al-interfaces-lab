@@ -1,4 +1,4 @@
-codeunit 50302 StorageDropbox
+codeunit 50302 StorageDropbox implements IStorage
 {
     procedure SaveFile(FileName: Text; FileData: Codeunit "Temp Blob")
     begin

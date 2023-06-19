@@ -1,4 +1,4 @@
-codeunit 50301 StorageAzureBlob
+codeunit 50301 StorageAzureBlob implements IStorage
 {
     procedure SaveFile(FileName: Text; FileData: Codeunit "Temp Blob")
     begin

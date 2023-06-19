@@ -10,4 +10,21 @@ table 50300 StorageSetup
             OptionMembers = AzureBlob,Dropbox,SharePoint;
         }
     }
+
+    procedure GetStorageImplementation(): Interface IStorage
+    var
+        StorageAzureBlob: Codeunit StorageAzureBlob;
+        StorageDropbox: Codeunit StorageDropbox;
+        StorageSharePoint: Codeunit StorageSharePoint;
+    begin
+        Rec.Get();
+        case Rec.StorageType of
+            Rec.StorageType::AzureBlob:
+                exit(StorageAzureBlob);
+            Rec.StorageType::Dropbox:
+                exit(StorageDropbox);
+            Rec.StorageType::SharePoint:
+                exit(StorageSharePoint);
+        end;
+    end;
 }
